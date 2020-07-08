@@ -55,6 +55,9 @@ function plate_getter(weight){
     aw = available_weights.sort(function(a, b){return b-a});
     //account for the weight of the bar
     weight = weight - weight_of_bar;
+    if (weight < 0) {
+        return null
+    }
     //round weight to nearest 5
     target = rounder(weight);
     //only care about 1 side of the bar
