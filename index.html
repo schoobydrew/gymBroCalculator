@@ -9,9 +9,79 @@
 <p id="main"></p>
 
 <script>
+//put your exercises and max's here
+workout = {
+    "chest,shoulders, & tri's":{
+        "Bench": 225,
+        "Pushup": NaN,
+        "Overhead Press": 100,
+        "Lateral Raise": 45,
+        "Skullcrusher": 45,
+        "Tricep Pushdown": 45,
+        "Pushup": NaN,
+        "Dip": NaN
+    },
+    "legs & core":{
+        "Squat": 225,
+        "Dead lift": 135,
+        "Calf Raise": 45,
+        "Lunge": 45,
+        "Core": NaN
+    },
+    "back & bi's":{
+        "Pull Up": NaN,
+        "Inverted Row": NaN,
+        "Cable Row": 45,
+        "DB Row": 45,
+        "Curl": 45
+    }
+};
+//globals
+//use decimal for percentage
+weekly_percentages = [[.6,.6,.75,.75],[.65,.75,.85,.85],[.7,.8,.9,.9],[.5,.5,.6,.6]];
+weekly_rep_count = [5,4,3,10];
+bodyweight_rep_count = 10;
+available_weights = [45,25,10,5,2.5];
+weight_of_bar = 45;
+//scripts
 function gains()
 {
-    document.getElementById("main").innerHTML = "bruh";
+    document.getElementById("main").innerHTML = plate_getter(150);
+}
+//takes in actual weight
+//calculates target weight and what plates to put on
+function plate_getter(weight){
+    //sort weights to ensure proper mafs
+    aw = available_weights.sort(function(a, b){return b-a});
+    //account for the weight of the bar
+    weight = weight - weight_of_bar;
+    //round weight to nearest 5
+    target = rounder(weight);
+    //only care about 1 side of the bar
+    htarget = target/2;
+    console.log("Half target: " + htarget);
+    //loop through and see which ones fit
+    r = htarget;
+    weights = [];
+    for (w in aw) {
+        cur_w = aw[w];
+        console.log("Current plate: " + cur_w)
+        q = Math.floor(r/cur_w);
+        console.log("Quotient: " + q);
+        if (q) {
+            weights.push([cur_w,q]);
+            r = r % cur_w
+            console.log("r: " + r)
+            if (!r) {
+                break
+            }
+        }
+    }
+    return [target, weights];
+}
+//rounds weight
+function rounder(weight){
+    return Math.floor(weight/5)*5;
 }
 </script>
 
