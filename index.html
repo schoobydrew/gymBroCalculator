@@ -47,7 +47,17 @@ weight_of_bar = 45;
 //scripts
 function gains()
 {
-    document.getElementById("main").innerHTML = plate_getter(150);
+    document.getElementById("main").innerHTML = "";
+    for (i in weekly_rep_count){
+        weeknum = "Week " + i
+        weeklink = "week" + i
+        document.getElementById("main").innerHTML += "<p id='"+ weeklink +"'>" + weeknum + "</p>";
+        document.getElementById("main").innerHTML += "<p>Bruh</p>";
+        for (i=0;i<10;i++) {
+            document.getElementById("main").innerHTML += "<br>";
+        }
+        document.getElementById("main").innerHTML += "<a href='#" + weeklink +"'>" + weeknum +"</a>";
+    }
 }
 //takes in actual weight
 //calculates target weight and what plates to put on
@@ -57,7 +67,7 @@ function plate_getter(weight){
     //account for the weight of the bar
     weight = weight - weight_of_bar;
     if (weight < 0) {
-        return null
+        return null;
     }
     //round weight to nearest 5
     target = rounder(weight);
